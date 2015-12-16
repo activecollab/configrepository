@@ -1,0 +1,6 @@
+<congig>
+    <db_user>my_user</db_user>
+    <db_pass>my_pass</db_pass>
+    <db_host>my_host</db_host>
+    <log>file_location</log>
+</congig>
