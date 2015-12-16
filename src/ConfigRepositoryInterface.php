@@ -1,8 +1,11 @@
 <?php
 
-namespace ActiveCollab\Configuration;
+namespace ActiveCollab\ConfigRepository;
 
-interface ConfigInterface
+/**
+ * @package ActiveCollab\ConfigRepository
+ */
+interface ConfigRepositoryInterface
 {
     /**
      * Retrieve a value and return $default if there is no element set.

@@ -1,8 +1,8 @@
 <?php
 
-namespace ActiveCollab\Configuration;
+namespace ActiveCollab\ConfigRepository;
 
-use ActiveCollab\Configuration\Providers\ArrayProvider;
+use ActiveCollab\ConfigRepository\Providers\ArrayProvider;
 use Exception;
 
 class CompositeConfig
@@ -35,11 +35,11 @@ class CompositeConfig
     public function __construct(array $configs)
     {
         foreach ($configs as $config) {
-            if ($config instanceof Config) {
+            if ($config instanceof ConfigRepository) {
                 $this->configs[] = $config;
             } elseif (is_array($config)) {
                 $provider = new ArrayProvider($config);
-                $this->configs[] = new Config($provider);
+                $this->configs[] = new ConfigRepository($provider);
             } else {
                 throw new Exception('Invalid config');
             }
@@ -47,9 +47,9 @@ class CompositeConfig
     }
 
     /**
-     * @param Config $config
+     * @param ConfigRepository $config
      */
-    public function addConfig(Config $config)
+    public function addConfig(ConfigRepository $config)
     {
         $this->configs[] = $config;
     }

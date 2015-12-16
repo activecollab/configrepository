@@ -1,6 +1,6 @@
 <?php
 
-namespace ActiveCollab\Configuration\Providers;
+namespace ActiveCollab\ConfigRepository\Providers;
 
 class EnvProvider extends ArrayProvider
 {

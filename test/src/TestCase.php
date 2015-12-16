@@ -1,6 +1,6 @@
 <?php
 
-namespace ActiveCollab\Configuration\Test;
+namespace ActiveCollab\ConfigRepository\Test;
 
 /**
  */

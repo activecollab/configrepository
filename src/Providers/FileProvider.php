@@ -1,8 +1,8 @@
 <?php
 
-namespace ActiveCollab\Configuration\Providers;
+namespace ActiveCollab\ConfigRepository\Providers;
 
-use ActiveCollab\Configuration\Providers\FileReaders\ReaderInterface;
+use ActiveCollab\ConfigRepository\Providers\FileReaders\ReaderInterface;
 
 class FileProvider extends ArrayProvider
 {

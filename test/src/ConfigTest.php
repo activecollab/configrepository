@@ -1,11 +1,11 @@
 <?php
 
-namespace ActiveCollab\Configuration\Test;
+namespace ActiveCollab\ConfigRepository\Test;
 
-use ActiveCollab\Configuration\Config;
-use ActiveCollab\Configuration\Providers\EnvProvider;
-use ActiveCollab\Configuration\Providers\FileProvider;
-use ActiveCollab\Configuration\Providers\ServerProvider;
+use ActiveCollab\ConfigRepository\ConfigRepository;
+use ActiveCollab\ConfigRepository\Providers\EnvProvider;
+use ActiveCollab\ConfigRepository\Providers\FileProvider;
+use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 
 class ConfigTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ConfigTest extends TestCase
     public function testFileConfigPhpRunOK($file)
     {
         $provider = new FileProvider($file);
-        $conf = new Config($provider);
+        $conf = new ConfigRepository($provider);
         $this->assertConfigValues($conf);
     }
 
@@ -26,7 +26,7 @@ class ConfigTest extends TestCase
         $_ENV['test_var'] = $expected;
         //Create config
         $env_provider = new EnvProvider();
-        $conf = new Config($env_provider);
+        $conf = new ConfigRepository($env_provider);
         //test
         $this->assertEquals($expected, $conf->test_var);
         //unset ENV
@@ -41,7 +41,7 @@ class ConfigTest extends TestCase
 
         //Create config
         $server_provider = new ServerProvider();
-        $conf = new Config($server_provider);
+        $conf = new ConfigRepository($server_provider);
         //test
         $this->assertEquals($expected, $conf->test_var);
         //unset SERVER
@@ -57,7 +57,7 @@ class ConfigTest extends TestCase
         ];
     }
 
-    protected function assertConfigValues(Config $config)
+    protected function assertConfigValues(ConfigRepository $config)
     {
         //--------------------------
         //test __get

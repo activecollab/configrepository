@@ -1,12 +1,12 @@
 <?php
 
-namespace ActiveCollab\Configuration;
+namespace ActiveCollab\ConfigRepository;
 
-use ActiveCollab\Configuration\Providers\EnvProvider;
-use ActiveCollab\Configuration\Providers\ProviderInterface;
-use ActiveCollab\Configuration\Providers\ServerProvider;
+use ActiveCollab\ConfigRepository\Providers\EnvProvider;
+use ActiveCollab\ConfigRepository\Providers\ProviderInterface;
+use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 
-class Config implements ConfigInterface
+class ConfigRepository implements ConfigRepositoryInterface
 {
     /**
      * Configuration data.

@@ -1,12 +1,12 @@
 <?php
 
-namespace ActiveCollab\Configuration\Test;
+namespace ActiveCollab\ConfigRepository\Test;
 
-use ActiveCollab\Configuration\CompositeConfig;
-use ActiveCollab\Configuration\Config;
-use ActiveCollab\Configuration\Providers\ArrayProvider;
-use ActiveCollab\Configuration\Providers\EnvProvider;
-use ActiveCollab\Configuration\Providers\ServerProvider;
+use ActiveCollab\ConfigRepository\CompositeConfig;
+use ActiveCollab\ConfigRepository\ConfigRepository;
+use ActiveCollab\ConfigRepository\Providers\ArrayProvider;
+use ActiveCollab\ConfigRepository\Providers\EnvProvider;
+use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 
 class CompositeConfigTest extends TestCase
 {
@@ -23,13 +23,13 @@ class CompositeConfigTest extends TestCase
         $_ENV['key2'] = 'val2';
         $_ENV['key3'] = 'val3';
         $env_provider = new EnvProvider();
-        $env_config = new Config($env_provider);
+        $env_config = new ConfigRepository($env_provider);
 
         $_SERVER['key3'] = 'val3-srv';
         $_SERVER['key4'] = 'val4';
         $_SERVER['key5'] = 'val5';
         $srv_provider = new ServerProvider();
-        $srv_config = new Config($srv_provider);
+        $srv_config = new ConfigRepository($srv_provider);
 
         $array = [
             'key6' => 'val6',
@@ -41,7 +41,7 @@ class CompositeConfigTest extends TestCase
             $this->prefix.$this->separator.$this->user_email.$this->separator.'key12' => 'val12',
         ];
         $array_provider = new ArrayProvider($array);
-        $array_config = new Config($array_provider);
+        $array_config = new ConfigRepository($array_provider);
         //config will first look in env than server and at last array config
         $this->composite_config = new CompositeConfig([$env_config, $srv_config, $array_config]);
     }

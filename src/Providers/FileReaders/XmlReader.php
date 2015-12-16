@@ -1,6 +1,6 @@
 <?php
 
-namespace ActiveCollab\Configuration\Providers\FileReaders;
+namespace ActiveCollab\ConfigRepository\Providers\FileReaders;
 
 class XmlReader implements ReaderInterface
 {
