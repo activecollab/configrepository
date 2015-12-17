@@ -42,3 +42,49 @@ $repository->getAdapter(PhpConstantsAdapter::class)->get('CONFIG_NAME', 'default
 $repository->getAdapter(PhpConstantsAdapter::class)->mustGet('CONFIG_NAME'); // Throws an exception if option is not fpund
 $repository->getAdapter(PhpConstantsAdapter::class)->set('CONFIG_NAME', 'value to set');
 ```
+
+## Adapter Composition
+
+When constructing a repository instance, you can specify a list of adapters:
+
+```php
+<?php
+
+use ActiveCollab\ConfigRepository\ConfigRepository;
+use ActiveCollab\ConfigRepository\Adapter\DotEnvAdapter;
+use ActiveCollab\ConfigRepository\Adapter\PhpConstantsAdapter;
+
+$repository = new ConfigRepository(new PhpConstantsAdapter(__DIR__ . '/Resources/config.simple.php'), new DotEnvAdapter(__DIR__ . '/Resources', '.env'));
+```
+
+Adapters added like this will be indexed by their class names, so instances of the same class can't be added like this. To do that, provide an array, where key is adaper name and value is adapter instance (if key is missing, library will use adapter's class as adapter name):
+
+```php
+<?php
+
+use ActiveCollab\ConfigRepository\ConfigRepository;
+use ActiveCollab\ConfigRepository\Adapter\DotEnvAdapter;
+use ActiveCollab\ConfigRepository\Adapter\PhpConstantsAdapter;
+
+$repository = new ConfigRepository([
+    new PhpConstantsAdapter(__DIR__ . '/Resources/config.simple.php'),
+    'second' => new PhpConstantsAdapter(__DIR__ . '/Resources/config.simple.php'),
+], new DotEnvAdapter(__DIR__ . '/Resources', '.env'));
+
+$repository->getAdapter(PhpConstantsAdapter::class); // Returns PhpConstantsAdapter instance
+$repository->getAdapter('second');                   // Returns PhpConstantsAdapter instance
+$repository->getAdapter(DotEnvAdapter::class);       // Returns DotEnvAdapter instance
+```
+
+Adapters can also be added at any time, using `addAdapter()` method:
+
+```php
+<?php
+
+use ActiveCollab\ConfigRepository\ConfigRepository;
+use ActiveCollab\ConfigRepository\Adapter\DotEnvAdapter;
+use ActiveCollab\ConfigRepository\Adapter\PhpConstantsAdapter;
+
+$repository = new ConfigRepository(new PhpConstantsAdapter(__DIR__ . '/Resources/config.simple.php'));
+$repository->addAdapter(new DotEnvAdapter($repository->get('DOT_ENV_DIR_PATH')));
+```
