@@ -19,36 +19,50 @@ class ConfigRepository implements ConfigRepositoryInterface
     /**
      * @param AdapterInterface[] ...$adapters
      */
-    public function __construct(AdapterInterface ...$adapters)
+    public function __construct(...$adapters)
     {
         foreach ($adapters as $adapter) {
-            $this->addAdapter($adapter);
+            if (is_array($adapter)) {
+                foreach ($adapter as $adapter_name => $a) {
+                    if ($a instanceof AdapterInterface) {
+                        $this->addAdapter($a, is_string($adapter_name) ? $adapter_name : get_class($a));
+                    } else {
+                        throw new InvalidArgumentException('Expected array of AdapterInterface instances or AdapterInterface instance');
+                    }
+                }
+            } elseif ($adapter instanceof AdapterInterface) {
+                $this->addAdapter($adapter);
+            } else {
+                throw new InvalidArgumentException('Expected array of AdapterInterface instances or AdapterInterface instance');
+            }
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function &getAdapter($adapter_class)
+    public function &getAdapter($name)
     {
-        if (isset($this->adapters[$adapter_class])) {
-            return $this->adapters[$adapter_class];
+        if (isset($this->adapters[$name])) {
+            return $this->adapters[$name];
         } else {
-            throw new InvalidArgumentException("Provider '$adapter_class' not found in the config repository");
+            throw new InvalidArgumentException("Provider '$name' not found in the config repository");
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function &addAdapter(AdapterInterface $adapter)
+    public function &addAdapter(AdapterInterface $adapter, $name = null)
     {
-        $adapter_class = get_class($adapter);
+        if (empty($name)) {
+            $name = get_class($adapter);
+        }
 
-        if (empty($this->adapters[$adapter_class])) {
-            $this->adapters[$adapter_class] = $adapter;
+        if (empty($this->adapters[$name])) {
+            $this->adapters[$name] = $adapter;
         } else {
-            throw new RuntimeException("Provider '$adapter_class' already added");
+            throw new RuntimeException("Adapter '$name' already added");
         }
 
         return $this;

@@ -10,18 +10,19 @@ interface ConfigRepositoryInterface
     /**
      * Return adapter instance by adapter class name.
      *
-     * @param  string           $adapter_class
+     * @param  string $name
      * @return AdapterInterface
      */
-    public function &getAdapter($adapter_class);
+    public function &getAdapter($name);
 
     /**
      * Add a provider to the repository.
      *
      * @param  AdapterInterface $adapter
+     * @param  string|null      $name
      * @return $this
      */
-    public function &addAdapter(AdapterInterface $adapter);
+    public function &addAdapter(AdapterInterface $adapter, $name = null);
 
     /**
      * Return TRUE if $name config option exists in any of the adapters.
