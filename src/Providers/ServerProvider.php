@@ -2,7 +2,7 @@
 
 namespace ActiveCollab\ConfigRepository\Providers;
 
-class ServerProvider extends ArrayProvider
+class ServerProvider extends ArrayAdapter
 {
     /**
      * ServerProvider constructor.

@@ -2,7 +2,7 @@
 
 namespace ActiveCollab\ConfigRepository\Providers;
 
-class EnvProvider extends ArrayProvider
+class EnvProvider extends ArrayAdapter
 {
     /**
      * EnvProvider constructor.

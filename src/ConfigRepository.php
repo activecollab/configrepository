@@ -2,9 +2,9 @@
 
 namespace ActiveCollab\ConfigRepository;
 
-use ActiveCollab\ConfigRepository\Providers\EnvProvider;
-use ActiveCollab\ConfigRepository\Providers\ProviderInterface;
-use ActiveCollab\ConfigRepository\Providers\ServerProvider;
+use ActiveCollab\ConfigRepository\Exception\InvalidArgumentException;
+use ActiveCollab\ConfigRepository\Exception\OptionNotFound;
+use ActiveCollab\ConfigRepository\Exception\RuntimeException;
 
 /**
  * @package ActiveCollab\ConfigRepository
@@ -12,36 +12,74 @@ use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 class ConfigRepository implements ConfigRepositoryInterface
 {
     /**
-     * Configuration data.
-     *
-     * @var array
+     * @var AdapterInterface[]
      */
-    protected $provider;
+    protected $adapters;
 
     /**
-     * @var bool
+     * @param AdapterInterface[] ...$adapters
      */
-    protected $is_global = false;
-
-    public function __construct(ProviderInterface $config_provider)
+    public function __construct(AdapterInterface ...$adapters)
     {
-        if ($config_provider instanceof EnvProvider || $config_provider instanceof ServerProvider) {
-            $this->is_global = true;
+        foreach ($adapters as $adapter) {
+            $this->addAdapter($adapter);
         }
-        $this->provider = $config_provider;
     }
 
     /**
-     * Retrieve a value and return $default if there is no element set.
-     *
-     * @param string $name
-     * @param mixed  $default
-     *
-     * @return mixed
+     * {@inheritdoc}
+     */
+    public function &getAdapter($adapter_class)
+    {
+        if (isset($this->adapters[$adapter_class])) {
+            return $this->adapters[$adapter_class];
+        } else {
+            throw new InvalidArgumentException("Provider '$adapter_class' not found in the config repository");
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function &addAdapter(AdapterInterface $adapter)
+    {
+        $adapter_class = get_class($adapter);
+
+        if (empty($this->adapters[$adapter_class])) {
+            $this->adapters[$adapter_class] = $adapter;
+        } else {
+            throw new RuntimeException("Provider '$adapter_class' already added");
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function get($name, $default = null)
     {
-        return $this->provider->get($name, $default);
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->exists($name)) {
+                return $adapter->get($name);
+            }
+        }
+
+        return $default;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function mustGet($name)
+    {
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->exists($name)) {
+                return $adapter->get($name);
+            }
+        }
+
+        throw new OptionNotFound("Option '$name' not found in config providers");
     }
 
     /**
@@ -53,7 +91,13 @@ class ConfigRepository implements ConfigRepositoryInterface
      */
     public function exists($name)
     {
-        return $this->provider->exists($name);
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->exists($name)) {
+                return true;
+            }
+        }
+
+        return false;
     }
     /**
      * Magic function so that $obj->value will work.
@@ -75,11 +119,6 @@ class ConfigRepository implements ConfigRepositoryInterface
      */
     public function set($name, $value)
     {
-        $this->provider->set($name, $value);
-    }
-
-    public function isGlobal()
-    {
-        return $this->is_global;
+        $this->adapters->set($name, $value);
     }
 }

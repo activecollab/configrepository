@@ -2,7 +2,7 @@
 
 namespace ActiveCollab\ConfigRepository;
 
-use ActiveCollab\ConfigRepository\Providers\ArrayProvider;
+use ActiveCollab\ConfigRepository\Providers\ArrayAdapter;
 use Exception;
 
 class CompositeConfig
@@ -38,7 +38,7 @@ class CompositeConfig
             if ($config instanceof ConfigRepository) {
                 $this->configs[] = $config;
             } elseif (is_array($config)) {
-                $provider = new ArrayProvider($config);
+                $provider = new ArrayAdapter($config);
                 $this->configs[] = new ConfigRepository($provider);
             } else {
                 throw new Exception('Invalid config');

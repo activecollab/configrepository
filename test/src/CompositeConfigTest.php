@@ -4,7 +4,7 @@ namespace ActiveCollab\ConfigRepository\Test;
 
 use ActiveCollab\ConfigRepository\CompositeConfig;
 use ActiveCollab\ConfigRepository\ConfigRepository;
-use ActiveCollab\ConfigRepository\Providers\ArrayProvider;
+use ActiveCollab\ConfigRepository\Providers\ArrayAdapter;
 use ActiveCollab\ConfigRepository\Providers\EnvProvider;
 use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 
@@ -40,7 +40,7 @@ class CompositeConfigTest extends TestCase
             $this->prefix.$this->separator.$this->user_email.$this->separator.'key11' => 'val11',
             $this->prefix.$this->separator.$this->user_email.$this->separator.'key12' => 'val12',
         ];
-        $array_provider = new ArrayProvider($array);
+        $array_provider = new ArrayAdapter($array);
         $array_config = new ConfigRepository($array_provider);
         //config will first look in env than server and at last array config
         $this->composite_config = new CompositeConfig([$env_config, $srv_config, $array_config]);

@@ -2,7 +2,9 @@
 
 namespace ActiveCollab\ConfigRepository\Providers;
 
-class SomeService implements ProviderInterface
+use ActiveCollab\ConfigRepository\AdapterInterface;
+
+class SomeService implements AdapterInterface
 {
     protected $data = [];
     protected $service;

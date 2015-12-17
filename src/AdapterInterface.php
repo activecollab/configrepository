@@ -1,8 +1,11 @@
 <?php
 
-namespace ActiveCollab\ConfigRepository\Providers;
+namespace ActiveCollab\ConfigRepository;
 
-interface ProviderInterface
+/**
+ * @package ActiveCollab\ConfigRepository\Providers
+ */
+interface AdapterInterface
 {
     /**
      * Returns config array.
@@ -10,6 +13,7 @@ interface ProviderInterface
      * @return array
      */
     public function getData();
+
     /**
      * Retrieve a value and return $default if there is no element set.
      *

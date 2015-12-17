@@ -4,7 +4,7 @@ namespace ActiveCollab\ConfigRepository\Providers;
 
 use ActiveCollab\ConfigRepository\Providers\FileReaders\ReaderInterface;
 
-class FileProvider extends ArrayProvider
+class FileProvider extends ArrayAdapter
 {
     /**
      * Supported extensions

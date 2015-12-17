@@ -2,7 +2,9 @@
 
 namespace ActiveCollab\ConfigRepository\Providers;
 
-class ArrayProvider implements ProviderInterface
+use ActiveCollab\ConfigRepository\AdapterInterface;
+
+class ArrayAdapter implements AdapterInterface
 {
     /**
      * Configuration data.
