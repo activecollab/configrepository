@@ -4,7 +4,8 @@ namespace ActiveCollab\ConfigRepository\Adapter;
 
 use ActiveCollab\ConfigRepository\AdapterInterface;
 use ActiveCollab\Etcd\ClientInterface;
-use ActiveCollab\Etcd\Exception\KeyNotFoundException;
+use ActiveCollab\Etcd\Exception\ExceptionInterface;
+use Exception;
 
 /**
  * @package ActiveCollab\ConfigRepository\Providers
@@ -22,39 +23,31 @@ class EtcdAdapter implements AdapterInterface
     }
 
     /**
-     * Retrieve a value and return $default if there is no element set.
-     *
-     * @param string $name
-     * @param mixed  $default
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function get($name, $default = null)
     {
-        return $this->exists($name) ? $this->client->get($name) : $default;
-    }
-
-    /**
-     * Check if $name exists.
-     *
-     * @param string $name
-     * @return bool
-     */
-    public function exists($name)
-    {
         try {
-            $this->client->get($name);
-            return true;
-        } catch (KeyNotFoundException $e) {
-            return false;
+            return $this->client->get($name);
+        } catch (Exception $e) {
+            if ($e instanceof  ExceptionInterface) {
+                return $default;
+            } else {
+                throw $e;
+            }
         }
     }
 
     /**
-     * Set a value in the config.
-     *
-     * @param string $name
-     * @param mixed  $value
+     * {@inheritdoc}
+     */
+    public function exists($name)
+    {
+        return $this->client->exists($name);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function set($name, $value)
     {

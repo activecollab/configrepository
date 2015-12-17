@@ -29,7 +29,11 @@ class EtcdAdapterTest extends TestCase
         parent::setUp();
 
         $this->client = new Client();
-        $this->client->removeDir('/phpunit_test', true);
+
+        if ($this->client->dirExists('/phpunit_test')) {
+            $this->client->removeDir('/phpunit_test', true);
+        }
+
         $this->client->createDir('/phpunit_test');
         $this->client->setSandboxPath('/phpunit_test');
         $this->client->set('FIRST', 1);
@@ -40,7 +44,11 @@ class EtcdAdapterTest extends TestCase
 
     public function tearDown()
     {
-        $this->client->removeDir('/', true);
+        $this->client->setSandboxPath('/');
+
+        if ($this->client->dirExists('/phpunit_test')) {
+            $this->client->removeDir('/phpunit_test', true);
+        }
 
         parent::tearDown();
     }
@@ -59,7 +67,7 @@ class EtcdAdapterTest extends TestCase
      */
     public function testGet()
     {
-        $this->assertSame(1, $this->repository->get('FIRST'));
+        $this->assertEquals(1, $this->repository->get('FIRST'));
         $this->assertSame('not-found', $this->repository->get('NOT FOUND', 'not-found'));
     }
 
@@ -68,7 +76,7 @@ class EtcdAdapterTest extends TestCase
      */
     public function testMustGet()
     {
-        $this->assertSame(1, $this->repository->mustGet('FIRST'));
+        $this->assertEquals(1, $this->repository->mustGet('FIRST'));
     }
 
     /**
@@ -80,10 +88,11 @@ class EtcdAdapterTest extends TestCase
     }
 
     /**
-     * @expectedException \ActiveCollab\ConfigRepository\Exception\LogicException
+     * Test set value
      */
     public function testSet()
     {
         $this->repository->set('FIRST', 12);
+        $this->assertEquals(12, $this->repository->get('FIRST'));
     }
 }
