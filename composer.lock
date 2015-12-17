@@ -4,9 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1af7785d72431c996ed90298baf8bc7f",
-    "content-hash": "adec904e789edc4987137581ccf1593f",
+    "hash": "85b621b4ca2bacc9bb72da0a2a9155c5",
+    "content-hash": "2cf51be09534d562247e1f2b1f119e07",
     "packages": [
+        {
+            "name": "activecollab/configfile",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/activecollab/configfile.git",
+                "reference": "fe0ae7da3466f26e49e54b6dd3508c85421c0bdf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/activecollab/configfile/zipball/fe0ae7da3466f26e49e54b6dd3508c85421c0bdf",
+                "reference": "fe0ae7da3466f26e49e54b6dd3508c85421c0bdf",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-mbstring": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ActiveCollab\\ConfigFile\\": "src",
+                    "ActiveCollab\\ConfigFile\\Test\\": "test/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Get constants from a configuration file written in PHP",
+            "keywords": [
+                "activecollab",
+                "configuration",
+                "const",
+                "define"
+            ],
+            "time": "2015-09-07 12:19:11"
+        },
         {
             "name": "activecollab/etcd",
             "version": "1.0.0",
@@ -57,6 +98,57 @@
                 "etcd"
             ],
             "time": "2015-12-16 23:48:24"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "101d5d7498bcd827e73c20da2f687e79d2d139f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/101d5d7498bcd827e73c20da2f687e79d2d139f9",
+                "reference": "101d5d7498bcd827e73c20da2f687e79d2d139f9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "homepage": "http://github.com/vlucas/phpdotenv",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2015-11-19 09:09:30"
         }
     ],
     "packages-dev": [

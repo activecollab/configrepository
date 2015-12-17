@@ -3,7 +3,9 @@
   "description" : "Configuration repository",
   "license" : "MIT",
   "require" : {
-    "activecollab/etcd" : "~1.0.0"
+    "activecollab/configfile": "~1.0",
+    "activecollab/etcd" : "~1.0.0",
+    "vlucas/phpdotenv" : "~2.0"
   },
   "require-dev" : {
     "phpunit/phpunit": "~5.0"
