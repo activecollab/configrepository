@@ -18,15 +18,6 @@ interface ConfigRepositoryInterface
     public function get($name, $default = null);
 
     /**
-     * Magic function so that $obj->value will work.
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get($name);
-
-    /**
      * Set a value in the config.
      *
      * @param string $name
