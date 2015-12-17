@@ -2,6 +2,14 @@
 
 This package provides a way to compose a configuration repository that reads and write options from serveral sources.
 
+Existing adapters:
+
+1. `DotEnvAdapter` - load environment variables from `.env` file (read-only),
+2. `EtcdAdapter` - read and write options from and to etcd cluster,
+3. `PhpConstantsAdapter` - load options from regular PHP file full of constants. Note that this file is not included, but parsed statically, so you don't need to worry that these constants will be defined in your code.
+
+To write your own adapters, simply implement `ActiveCollab\ConfigRepository\AdapterInterface`.
+
 ## Working with data
 
 Repository provides a couple of confenient methods to retrive and set the data:
