@@ -2,26 +2,30 @@
 
 namespace ActiveCollab\ConfigRepository\Adapter;
 
-use ActiveCollab\ConfigFile\ConfigFile;
 use ActiveCollab\ConfigRepository\Exception\LogicException;
 use ActiveCollab\ConfigRepository\AdapterInterface;
+use Dotenv\Dotenv;
 
 /**
  * @package ActiveCollab\ConfigRepository\Providers
  */
-class PhpConstantsAdapter implements AdapterInterface
+class DotEnvAdapter implements AdapterInterface
 {
     /**
-     * @var array
+     * @var Dotenv
      */
-    private $data = [];
+    private $dotenv = [];
 
     /**
-     * @param $file_path
+     * DotEnvAdapter constructor.
+     *
+     * @param string $path
+     * @param string $file
      */
-    public function __construct($file_path)
+    public function __construct($path, $file = '.env')
     {
-        $this->data = (new ConfigFile($file_path))->getOptions();
+        $this->dotenv = new Dotenv($path, $file);
+        $this->dotenv->load();
     }
 
     /**
@@ -34,7 +38,7 @@ class PhpConstantsAdapter implements AdapterInterface
      */
     public function get($name, $default = null)
     {
-        return $this->exists($name) ? $this->data[$name] : $default;
+        return $this->exists($name) ? $_ENV[$name] : $default;
     }
 
     /**
@@ -45,7 +49,7 @@ class PhpConstantsAdapter implements AdapterInterface
      */
     public function exists($name)
     {
-        return array_key_exists($name, $this->data);
+        return array_key_exists($name, $_ENV);
     }
 
     /**
@@ -56,6 +60,6 @@ class PhpConstantsAdapter implements AdapterInterface
      */
     public function set($name, $value)
     {
-        throw new LogicException('PHP constant files are read only');
+        throw new LogicException('Environment variables are read only');
     }
 }

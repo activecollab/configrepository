@@ -8,18 +8,10 @@ namespace ActiveCollab\ConfigRepository;
 interface AdapterInterface
 {
     /**
-     * Returns config array.
-     *
-     * @return array
-     */
-    public function getData();
-
-    /**
      * Retrieve a value and return $default if there is no element set.
      *
-     * @param string $name
-     * @param mixed  $default
-     *
+     * @param  string $name
+     * @param  mixed  $default
      * @return mixed
      */
     public function get($name, $default = null);
@@ -27,7 +19,7 @@ interface AdapterInterface
     /**
      * Check if $name exists.
      *
-     * @param string $name
+     * @param  string $name
      * @return bool
      */
     public function exists($name);
