@@ -4,9 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae1523500ebe66fb5d220ebd26afe9bd",
-    "content-hash": "4c14ece804332d3409a6285cecc6b61f",
-    "packages": [],
+    "hash": "1af7785d72431c996ed90298baf8bc7f",
+    "content-hash": "adec904e789edc4987137581ccf1593f",
+    "packages": [
+        {
+            "name": "activecollab/etcd",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/activecollab/etcd.git",
+                "reference": "9765d996179682df1af5fdf15515b83b6a58e5e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/activecollab/etcd/zipball/9765d996179682df1af5fdf15515b83b6a58e5e1",
+                "reference": "9765d996179682df1af5fdf15515b83b6a58e5e1",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ActiveCollab\\Etcd\\": "src",
+                    "ActiveCollab\\Etcd\\Test\\": "test/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ilija Studen",
+                    "email": "ilija.studen@activecollab.com"
+                },
+                {
+                    "name": "Cong Peijun",
+                    "email": "p.cong@linkorb.com"
+                }
+            ],
+            "description": "etcd client with minimal dependencies",
+            "homepage": "https://labs.activecollab.com",
+            "keywords": [
+                "client",
+                "configuration",
+                "etcd"
+            ],
+            "time": "2015-12-16 23:48:24"
+        }
+    ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
