@@ -8,7 +8,7 @@ namespace ActiveCollab\ConfigRepository;
 interface ConfigRepositoryInterface
 {
     /**
-     * Return adapter instance by adapter class name
+     * Return adapter instance by adapter class name.
      *
      * @param  string           $adapter_class
      * @return AdapterInterface
@@ -22,6 +22,14 @@ interface ConfigRepositoryInterface
      * @return $this
      */
     public function &addAdapter(AdapterInterface $adapter);
+
+    /**
+     * Return TRUE if $name config option exists in any of the adapters.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function exists($name);
 
     /**
      * Retrieve a value and return $default if there is no element set.
@@ -43,7 +51,7 @@ interface ConfigRepositoryInterface
     public function mustGet($name);
 
     /**
-     * Set a value in the config.
+     * Set a value in all adapters where $name option is present.
      *
      * @param string $name
      * @param mixed  $value

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Example config file, used by GetTest
+ * Example config file, used by various simple tests
  */
 
 defined('FIRST') or define('FIRST', 1);

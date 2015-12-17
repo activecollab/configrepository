@@ -3,7 +3,7 @@
 namespace ActiveCollab\ConfigRepository\Test;
 
 use ActiveCollab\ConfigRepository\ConfigRepository;
-use ActiveCollab\ConfigRepository\Adapter\PhpConstandsAdapter;
+use ActiveCollab\ConfigRepository\Adapter\PhpConstantsAdapter;
 
 /**
  * @package ActiveCollab\ConfigRepository\Test
@@ -22,7 +22,7 @@ class GetTest extends TestCase
     {
         parent::setUp();
 
-        $this->repository = new ConfigRepository(new PhpConstandsAdapter(__DIR__ . '/Resources/config.get_test.php'));
+        $this->repository = new ConfigRepository(new PhpConstantsAdapter(__DIR__ . '/Resources/config.simple.php'));
     }
 
     /**
@@ -41,6 +41,9 @@ class GetTest extends TestCase
         $this->assertSame('not-found', $this->repository->get('NOT FOUND FOR SURE', 'not-found'));
     }
 
+    /**
+     * Test must get existing value
+     */
     public function testFindAndMustGet()
     {
         $this->assertSame(2, $this->repository->mustGet('SECOND'));

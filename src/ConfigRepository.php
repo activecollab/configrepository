@@ -57,6 +57,20 @@ class ConfigRepository implements ConfigRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function exists($name)
+    {
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->exists($name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function get($name, $default = null)
     {
         foreach ($this->adapters as $adapter) {
@@ -83,23 +97,6 @@ class ConfigRepository implements ConfigRepositoryInterface
     }
 
     /**
-     * Check if $name exists.
-     *
-     * @param $name
-     *
-     * @return bool
-     */
-    public function exists($name)
-    {
-        foreach ($this->adapters as $adapter) {
-            if ($adapter->exists($name)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    /**
      * Magic function so that $obj->value will work.
      *
      * @param string $name
@@ -112,13 +109,14 @@ class ConfigRepository implements ConfigRepositoryInterface
     }
 
     /**
-     * Set a value in the config.
-     *
-     * @param string $name
-     * @param mixed  $value
+     * {@inheritdoc}
      */
     public function set($name, $value)
     {
-        $this->adapters->set($name, $value);
+        foreach ($this->adapters as $adapter) {
+            if ($adapter->exists($name)) {
+                $adapter->set($name, $value);
+            }
+        }
     }
 }

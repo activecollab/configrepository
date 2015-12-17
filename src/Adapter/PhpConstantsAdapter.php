@@ -9,7 +9,7 @@ use ActiveCollab\ConfigRepository\AdapterInterface;
 /**
  * @package ActiveCollab\ConfigRepository\Providers
  */
-class PhpConstandsAdapter implements AdapterInterface
+class PhpConstantsAdapter implements AdapterInterface
 {
     /**
      * @var array
