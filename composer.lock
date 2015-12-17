@@ -50,16 +50,16 @@
         },
         {
             "name": "activecollab/etcd",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/etcd.git",
-                "reference": "9765d996179682df1af5fdf15515b83b6a58e5e1"
+                "reference": "d9f2897086d2c10393f3ecfdd78a1c328cf865f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/etcd/zipball/9765d996179682df1af5fdf15515b83b6a58e5e1",
-                "reference": "9765d996179682df1af5fdf15515b83b6a58e5e1",
+                "url": "https://api.github.com/repos/activecollab/etcd/zipball/d9f2897086d2c10393f3ecfdd78a1c328cf865f3",
+                "reference": "d9f2897086d2c10393f3ecfdd78a1c328cf865f3",
                 "shasum": ""
             },
             "require": {
@@ -97,7 +97,7 @@
                 "configuration",
                 "etcd"
             ],
-            "time": "2015-12-16 23:48:24"
+            "time": "2015-12-17 11:58:09"
         },
         {
             "name": "vlucas/phpdotenv",
