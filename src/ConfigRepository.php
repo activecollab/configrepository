@@ -6,6 +6,9 @@ use ActiveCollab\ConfigRepository\Providers\EnvProvider;
 use ActiveCollab\ConfigRepository\Providers\ProviderInterface;
 use ActiveCollab\ConfigRepository\Providers\ServerProvider;
 
+/**
+ * @package ActiveCollab\ConfigRepository
+ */
 class ConfigRepository implements ConfigRepositoryInterface
 {
     /**
@@ -72,7 +75,7 @@ class ConfigRepository implements ConfigRepositoryInterface
      */
     public function set($name, $value)
     {
-        return $this->provider->set($name, $value);
+        $this->provider->set($name, $value);
     }
 
     public function isGlobal()
