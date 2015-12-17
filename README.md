@@ -1,5 +1,7 @@
 # Configuration Repository
 
+[![Build Status](https://travis-ci.org/activecollab/configrepository.svg?branch=master)](https://travis-ci.org/activecollab/configrepository)
+
 This package provides a way to compose a configuration repository that reads and write options from serveral sources.
 
 Existing adapters:
